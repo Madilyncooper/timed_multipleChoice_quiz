@@ -48,7 +48,9 @@ var timer;
 
 var currentQuestion = questions[indexOfCurrentQuestion];
 
-function nextQuestion() {
+var score = [];
+
+function firstNextQuestion() {
 
     document.querySelector('h1').innerHTML = '';
 
@@ -69,6 +71,26 @@ function nextQuestion() {
 }
 
 
+function nextQuestion(currentQuestion = questions[indexOfCurrentQuestion += 1]) {
+
+    document.querySelector('#question-content').innerHTML = '';
+
+    var titleEl = document.createElement('h2');
+    titleEl.textContent = currentQuestion.title;
+    questionContent.appendChild(titleEl);
+
+    for (var i = 0; i < currentQuestion.choices.length; i++) {
+        var buttonEl = document.createElement('button');
+        buttonEl.setAttribute('class', 'choice');
+        buttonEl.textContent = currentQuestion.choices[i];
+
+        questionContent.appendChild(buttonEl);
+    }
+
+
+
+}
+
 
 startButtonEl.addEventListener('click', function (event) {
     event.preventDefault();
@@ -76,11 +98,13 @@ startButtonEl.addEventListener('click', function (event) {
         timeLeft--;
         timeLeftEl.textContent = timeLeft;
 
-        //TODO: Add in clear interval for when time gets to zero. Add in score results. 
-        // Add in time taken off for wrong answers//
+    if (timeLeft === 0) {
+        clearInterval(timer);
+        // viewHighscore();
+    }
     }, 1000);
 
-    nextQuestion();
+    firstNextQuestion();
 
 });
 
@@ -93,17 +117,15 @@ questionContent.addEventListener('click', function (event) {
         console.log(currentQuestion.answer);
 
         if (currentQuestion.answer === event.target.textContent) {
-            //track score for initials and score at the end
-            //increase indexOfCurrentQuestion
-            //nextQuestion();
+            
         }
         else {
-            //decrease timer 10 seconds
-            //increase indexOfCurrentQuestion
-            //nextQuestion();
+            timeLeft -= 10;
         }
+        nextQuestion();
     }
 });
+
 
 
 
