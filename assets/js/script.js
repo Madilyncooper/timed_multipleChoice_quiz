@@ -21,18 +21,20 @@ var questions = [
         answer: 'all of the above',
     },
     {
-        title:
-            '4. String values must be enclosed within ____ when being assigned to variables.',
+        title: '4. String values must be enclosed within ____ when being assigned to variables.',
         choices: ['commas', 'curly brackets', 'quotes', 'parentheses'],
         answer: 'quotes',
     },
     {
-        title:
-            '5. A very useful tool used during development and debugging for printing content to the debugger is:',
+        title: '5. A very useful tool used during development and debugging for printing content to the debugger is:',
         choices: ['JavaScript', 'terminal / bash', 'for loops', 'console.log'],
         answer: 'console.log',
     },
 ];
+
+var highScoreSavedEl;
+
+var inputEl;
 
 var timeLeftEl = document.querySelector('#countdown');
 
@@ -54,7 +56,16 @@ var currentQuestion = questions[indexOfCurrentQuestion];
 
 var score = 0;
 
-function firstNextQuestion() {
+function updateInitials(event) {
+
+    localStorage.setItem('Initial', event.target.value);
+    localStorage.setItem('Score', score);
+    event.target.value = '';
+
+
+};
+
+function nextQuestion() {
 
     headingEl.innerHTML = '';
     questionContentEl.innerHTML = '';
@@ -72,10 +83,7 @@ function firstNextQuestion() {
 
         questionContentEl.appendChild(buttonEl);
     }
-
-
-
-}
+};
 
 
 startButtonEl.addEventListener('click', function (event) {
@@ -103,39 +111,42 @@ startButtonEl.addEventListener('click', function (event) {
             var initialEl = document.createElement('p');
             initialEl.textContent = 'Submit your initials to save your score: ';
             initialEl.setAttribute('style', 'font-size: 15px');
-            var inputEl = document.createElement('INPUT');
-            inputEl.setAttribute("type", "text");
+            inputEl = document.createElement('INPUT');
+            inputEl.setAttribute('type', 'input[name="initials"');
 
             headingEl.appendChild(initialEl);
             headingEl.appendChild(inputEl);
 
+            var grabInputEl = document.querySelector('INPUT');
+
+            grabInputEl.addEventListener('change', updateInitials);
+
 
         }
-    }, 100);
+    }, 1000);
 
-    firstNextQuestion();
+    nextQuestion();
 
 });
+
 
 questionContentEl.addEventListener('click', function (event) {
     event.preventDefault();
 
     if (event.target.matches('.choice')) {
 
-        console.log(event.target.textContent);
-        console.log(currentQuestion.answer);
-
         if (currentQuestion.answer === event.target.textContent) {
             score += 1;
-
         }
+
         else {
             timeLeft -= 10;
         }
 
-        firstNextQuestion(currentQuestion = questions[indexOfCurrentQuestion += 1]);
+        nextQuestion(currentQuestion = questions[indexOfCurrentQuestion += 1]);
     }
 });
+
 
 highScoreEl.addEventListener('click', function (event) {
     event.preventDefault();
@@ -147,37 +158,18 @@ highScoreEl.addEventListener('click', function (event) {
     titleEl.setAttribute('style', 'font-size: 30px; margin-top: 15px;');
     headingEl.appendChild(titleEl);
 
-    var highScoreSavedEl = document.createElement('ul');
+    highScoreSavedEl = document.createElement('ul');
     headingEl.appendChild(highScoreSavedEl);
 
     var personalScoreEl = document.createElement('li');
-    personalScoreEl.textContent = score; //name +// 
+    personalScoreEl.textContent = ` ${localStorage.getItem('Initial')} : ${localStorage.getItem('Score')} `;
     personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: white; padding-left: 50px; padding-right: 50px;');
     highScoreSavedEl.appendChild(personalScoreEl);
 
 
-    // var highScoreSavedEl = document.createElement('ul');
-    // headingEl.appendChild(highScoreEl);
-
-    // var personalScores = document.createElement('li');
-    // personalScores.textContent = inputEl.value();
-    // highScoreSavedEl.appendChild(personalScores);
-    // headingEl.appendChild(highScoreEl);
-
-
-
-
-    headingEl.appendChild(scoreEl);
-
-
-    // inputEl.addEventListener('submit', function(event){
-    //     event.preventDefault();
-    //     localStorage.setItem('HighSCore', score);
-
-    // })
-
-
 });
+
+
 
 
 
