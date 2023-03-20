@@ -2,33 +2,33 @@
 var questions = [
     {
         title: '1. Commonly used data types DO NOT include:',
-        choices: ['strings', 'booleans', 'alerts', 'numbers'],
-        answer: 'alerts',
+        choices: ['a. strings', 'b. booleans', 'c. alerts', 'd. numbers'],
+        answer: 'c. alerts',
     },
     {
         title: '2. The condition in an if / else statement is enclosed within ____.',
-        choices: ['quotes', 'curly brackets', 'parentheses', 'square brackets'],
-        answer: 'parentheses',
+        choices: ['a. quotes', 'b. curly brackets', 'c. parentheses', 'd. square brackets'],
+        answer: 'c. parentheses',
     },
     {
         title: '3. Arrays in JavaScript can be used to store ____.',
         choices: [
-            'numbers and strings',
-            'other arrays',
-            'booleans',
-            'all of the above',
+            'a. numbers and strings',
+            'b. other arrays',
+            'c. booleans',
+            'd. all of the above',
         ],
-        answer: 'all of the above',
+        answer: 'd. all of the above',
     },
     {
         title: '4. String values must be enclosed within ____ when being assigned to variables.',
-        choices: ['commas', 'curly brackets', 'quotes', 'parentheses'],
-        answer: 'quotes',
+        choices: ['a. commas', 'b. curly brackets', 'c. quotes', 'd. parentheses'],
+        answer: 'c. quotes',
     },
     {
         title: '5. A very useful tool used during development and debugging for printing content to the debugger is:',
-        choices: ['JavaScript', 'terminal / bash', 'for loops', 'console.log'],
-        answer: 'console.log',
+        choices: ['a. JavaScript', 'b. terminal / bash', 'c. for loops', 'd. console.log'],
+        answer: 'd. console.log',
     },
 ];
 
@@ -78,7 +78,7 @@ function nextQuestion() {
     for (var i = 0; i < currentQuestion.choices.length; i++) {
         var buttonEl = document.createElement('button');
         buttonEl.setAttribute('class', 'choice');
-        buttonEl.setAttribute('style', 'border-radius: 8px; width: 150px; font-size: 20px; margin-bottom: 10px; background-color: rgb(156, 178, 241); color: white;')
+        buttonEl.setAttribute('style', 'border-radius: 8px; width: 150px; font-size: 20px; margin-bottom: 10px; background-color: rgb(3, 26, 202); color: white;')
         buttonEl.textContent = currentQuestion.choices[i];
 
         questionContentEl.appendChild(buttonEl);
@@ -100,7 +100,7 @@ startButtonEl.addEventListener('click', function (event) {
             questionContentEl.innerHTML = '';
             var titleEl = document.createElement('h2');
             titleEl.textContent = 'Your Score: ';
-            titleEl.setAttribute('style', 'font-size: 30px; margin-top: 15px;')
+            titleEl.setAttribute('style', 'font-size: 20px; margin-top: 15px;')
             questionContentEl.appendChild(titleEl);
 
             var scoreEl = document.createElement('p');
@@ -110,7 +110,7 @@ startButtonEl.addEventListener('click', function (event) {
 
             var initialEl = document.createElement('p');
             initialEl.textContent = 'Submit your initials to save your score: ';
-            initialEl.setAttribute('style', 'font-size: 15px');
+            initialEl.setAttribute('style', 'font-size: 25px');
             inputEl = document.createElement('INPUT');
             inputEl.setAttribute('type', 'input[name="initials"');
 
@@ -163,7 +163,7 @@ highScoreEl.addEventListener('click', function (event) {
 
     var personalScoreEl = document.createElement('li');
     personalScoreEl.textContent = ` ${localStorage.getItem('Initial')} : ${localStorage.getItem('Score')} `;
-    personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: white; padding-left: 50px; padding-right: 50px;');
+    personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: rgb(240,230,140); padding-left: 50px; padding-right: 50px;');
     highScoreSavedEl.appendChild(personalScoreEl);
 
 
