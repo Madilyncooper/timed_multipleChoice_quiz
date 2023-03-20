@@ -153,10 +153,22 @@ highScoreEl.addEventListener('click', function (event) {
 
     headingEl.innerHTML = '';
     questionContentEl.innerHTML = '';
+    highScoreEl.innerHTML = '';
+
     var titleEl = document.createElement('h1');
     titleEl.textContent = 'High Scores: ';
     titleEl.setAttribute('style', 'font-size: 30px; margin-top: 15px;');
     headingEl.appendChild(titleEl);
+
+    var goBackEl = document.createElement('a');
+    goBackEl.textContent = 'Go Back';
+    goBackEl.setAttribute('style', ' margin-top: 20px; font-size: 20px; font-weight: bold; margin-left: 50px;');
+    goBackEl.setAttribute('class', '.goBack')
+    highScoreEl.appendChild(goBackEl);
+
+    // var goBack = document.querySelector('.goBack');
+
+    // goBack.addEventListener('click', )
 
     highScoreSavedEl = document.createElement('ul');
     headingEl.appendChild(highScoreSavedEl);
