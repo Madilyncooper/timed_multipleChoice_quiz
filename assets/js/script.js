@@ -48,6 +48,8 @@ var headingEl = document.querySelector('#heading');
 
 var indexOfCurrentQuestion = 0;
 
+var scoreListEl = document.querySelector('.score-list');
+
 var timeLeft = 50;
 
 var timer;
@@ -60,6 +62,8 @@ var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
 
 function updateInitials(event) {
 
+    event.preventDefault();
+
     var tmpScoreObj = {
         score: score,
         initial: event.target.value
@@ -67,8 +71,20 @@ function updateInitials(event) {
 
     scoresHistory.push(tmpScoreObj);
 
-    localStorage.setItem('scoresHistory', scoresHistory);
+    localStorage.setItem('Score', scoresHistory);
 
+    for (var i = 0; i < scoresHistory.length; i++) {
+
+        var personalScoreEl = document.createElement('li');
+        var scoreSheet = scoresHistory[i];
+        personalScoreEl.textContent = scoreSheet.score;
+        // personalScoreEl.textContent = scoreSheet.initial;
+        personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: rgb(240,230,140); padding-left: 50px; padding-right: 50px;');
+        scoreListEl.appendChild(personalScoreEl);
+        
+    }
+
+ 
 
 };
 
@@ -176,20 +192,9 @@ highScoreEl.addEventListener('click', function (event) {
     titleEl.setAttribute('style', 'font-size: 30px; margin-top: 15px;');
     headingEl.appendChild(titleEl);
 
-
-    highScoreSavedEl = document.createElement('ul');
-    headingEl.appendChild(highScoreSavedEl);
-
-    var personalScoreEl = document.createElement('li');
-
-    for (var i =0; i < tmpScoreObj.length; i++) {
-        
-        personalScoreEl.textContent = scoresHistory;
-        personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: rgb(240,230,140); padding-left: 50px; padding-right: 50px;');
-        highScoreSavedEl.appendChild(personalScoreEl);
-    }
-
-});
+    
+}
+);
 
 
 
