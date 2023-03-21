@@ -61,40 +61,29 @@ var score = 0;
 var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
 
 function updateInitials(event) {
-    var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
     event.preventDefault();
 
     var tmpScoreObj = {
         score: score,
-        initial: event.target.value
+        initial: event.target.value,
     };
 
+    var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
     scoresHistory.push(tmpScoreObj);
-
-    localStorage.setItem('Score', scoresHistory);
-
-    getScores();
-
-    function getScores() {
-
-        var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
-
+    localStorage.setItem('Score', JSON.stringify(scoresHistory));
+    
         for (var i = 0; i < scoresHistory.length; i++) {
 
             var personalScoreEl = document.createElement('li');
             var scoreSheet = scoresHistory[i];
-            personalScoreEl.textContent = scoreSheet.score;
-            // personalScoreEl.textContent = scoreSheet.initial;
+            var initialsAndScore = `${scoreSheet.initial} : ${scoreSheet.score}`;
+            personalScoreEl.textContent = initialsAndScore;
             personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: rgb(240,230,140); padding-left: 50px; padding-right: 50px;');
             scoreListEl.appendChild(personalScoreEl);
-            
+
         }
-    }
-  
+    };
 
- 
-
-};
 
 function nextQuestion() {
 
@@ -124,6 +113,7 @@ startButtonEl.addEventListener('click', function (event) {
         timeLeftEl.textContent = timeLeft;
 
         if (timeLeft <= 0 || indexOfCurrentQuestion === questions.length) {
+            
             clearInterval(timer);
 
             timeLeft.textContent = 0;
@@ -148,16 +138,23 @@ startButtonEl.addEventListener('click', function (event) {
             headingEl.appendChild(initialEl);
             headingEl.appendChild(inputEl);
 
-            var grabInputEl = document.querySelector('INPUT');
-
+            var grabInputEl = document.querySelector('input');
             grabInputEl.addEventListener('change', updateInitials);
 
+            
 
+            var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
+           
         }
+
     }, 1000);
 
     nextQuestion();
 });
+
+        
+
+   
 
 
 questionContentEl.addEventListener('click', function (event) {
@@ -200,7 +197,6 @@ highScoreEl.addEventListener('click', function (event) {
     titleEl.setAttribute('style', 'font-size: 30px; margin-top: 15px;');
     headingEl.appendChild(titleEl);
 
-    
 }
 );
 
