@@ -31,5 +31,9 @@ $ git clone <paste the copied link>
 ```
 ## Deploy:
 
+https://madilyncooper.github.io/timed_multipleChoice_quiz/
 
  ## Screenshot:
+<img width="537" alt="Screen Shot 2023-03-20 at 10 54 04 PM" src="https://user-images.githubusercontent.com/124405920/226528520-7243597c-9121-4926-b29c-42f26d8c4953.png">
+<img width="537" alt="Screen Shot 2023-03-20 at 10 54 04 PM" src="https://user-images.githubusercontent.com/124405920/226528644-eb30ae12-5ac0-4bbb-86db-8512666317da.png">
+<img width="1280" alt="Screen Shot 2023-03-20 at 10 53 21 PM" src="https://user-images.githubusercontent.com/124405920/226528696-5cafc547-f049-4bf1-ae3c-a632fd915788.png">
