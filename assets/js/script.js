@@ -61,7 +61,7 @@ var score = 0;
 var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
 
 function updateInitials(event) {
-
+    var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
     event.preventDefault();
 
     var tmpScoreObj = {
@@ -73,16 +73,24 @@ function updateInitials(event) {
 
     localStorage.setItem('Score', scoresHistory);
 
-    for (var i = 0; i < scoresHistory.length; i++) {
+    getScores();
 
-        var personalScoreEl = document.createElement('li');
-        var scoreSheet = scoresHistory[i];
-        personalScoreEl.textContent = scoreSheet.score;
-        // personalScoreEl.textContent = scoreSheet.initial;
-        personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: rgb(240,230,140); padding-left: 50px; padding-right: 50px;');
-        scoreListEl.appendChild(personalScoreEl);
-        
+    function getScores() {
+
+        var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
+
+        for (var i = 0; i < scoresHistory.length; i++) {
+
+            var personalScoreEl = document.createElement('li');
+            var scoreSheet = scoresHistory[i];
+            personalScoreEl.textContent = scoreSheet.score;
+            // personalScoreEl.textContent = scoreSheet.initial;
+            personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: rgb(240,230,140); padding-left: 50px; padding-right: 50px;');
+            scoreListEl.appendChild(personalScoreEl);
+            
+        }
     }
+  
 
  
 
@@ -101,7 +109,7 @@ function nextQuestion() {
     for (var i = 0; i < currentQuestion.choices.length; i++) {
         var buttonEl = document.createElement('button');
         buttonEl.setAttribute('class', 'choice');
-        buttonEl.setAttribute('style', 'border-radius: 8px; width: 150px; font-size: 20px; margin-bottom: 10px; background-color: rgb(135,206,235); color: white;')
+        buttonEl.setAttribute('style', 'margin-top: 10px; border-radius: 8px; width: 150px; font-size: 20px; background-color: rgb(135,206,235); color: white;')
         buttonEl.textContent = currentQuestion.choices[i];
 
         questionContentEl.appendChild(buttonEl);
