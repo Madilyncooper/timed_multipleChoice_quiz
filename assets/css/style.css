@@ -17,11 +17,11 @@ a {
 
 a:hover {
     text-decoration: overline;
-    color: rgb(3, 26, 202);
+    color: rgb(159, 19, 19);
 }
 
 #start {
-    background-color: rgb(3, 26, 202);
+    background-color: rgb(135,206,235);
     border-radius: 8px;
     width: 200px;
     font-size: 25px;

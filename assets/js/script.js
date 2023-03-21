@@ -56,11 +56,18 @@ var currentQuestion = questions[indexOfCurrentQuestion];
 
 var score = 0;
 
+var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
+
 function updateInitials(event) {
 
-    localStorage.setItem('Initial', event.target.value);
-    localStorage.setItem('Score', score);
-    event.target.value = '';
+    var tmpScoreObj = {
+        score: score,
+        initial: event.target.value
+    };
+
+    scoresHistory.push(tmpScoreObj);
+
+    localStorage.setItem('scoresHistory', scoresHistory);
 
 
 };
@@ -78,7 +85,7 @@ function nextQuestion() {
     for (var i = 0; i < currentQuestion.choices.length; i++) {
         var buttonEl = document.createElement('button');
         buttonEl.setAttribute('class', 'choice');
-        buttonEl.setAttribute('style', 'border-radius: 8px; width: 150px; font-size: 20px; margin-bottom: 10px; background-color: rgb(3, 26, 202); color: white;')
+        buttonEl.setAttribute('style', 'border-radius: 8px; width: 150px; font-size: 20px; margin-bottom: 10px; background-color: rgb(135,206,235); color: white;')
         buttonEl.textContent = currentQuestion.choices[i];
 
         questionContentEl.appendChild(buttonEl);
@@ -92,7 +99,7 @@ startButtonEl.addEventListener('click', function (event) {
         timeLeft--;
         timeLeftEl.textContent = timeLeft;
 
-        if (timeLeft <= 0) {
+        if (timeLeft <= 0 || indexOfCurrentQuestion === questions.length) {
             clearInterval(timer);
 
             timeLeft.textContent = 0;
@@ -126,7 +133,6 @@ startButtonEl.addEventListener('click', function (event) {
     }, 1000);
 
     nextQuestion();
-
 });
 
 
@@ -135,16 +141,26 @@ questionContentEl.addEventListener('click', function (event) {
 
     if (event.target.matches('.choice')) {
 
+
+
         if (currentQuestion.answer === event.target.textContent) {
+
             score += 1;
+
         }
 
         else {
             timeLeft -= 10;
+
         }
 
-        nextQuestion(currentQuestion = questions[indexOfCurrentQuestion += 1]);
+
+        indexOfCurrentQuestion += 1;
+        if (indexOfCurrentQuestion < questions.length) {
+            nextQuestion(currentQuestion = questions[indexOfCurrentQuestion]);
+        }
     }
+
 });
 
 
@@ -160,24 +176,18 @@ highScoreEl.addEventListener('click', function (event) {
     titleEl.setAttribute('style', 'font-size: 30px; margin-top: 15px;');
     headingEl.appendChild(titleEl);
 
-    var goBackEl = document.createElement('a');
-    goBackEl.textContent = 'Go Back';
-    goBackEl.setAttribute('style', ' margin-top: 20px; font-size: 20px; font-weight: bold; margin-left: 50px;');
-    goBackEl.setAttribute('class', '.goBack')
-    highScoreEl.appendChild(goBackEl);
-
-    // var goBack = document.querySelector('.goBack');
-
-    // goBack.addEventListener('click', )
 
     highScoreSavedEl = document.createElement('ul');
     headingEl.appendChild(highScoreSavedEl);
 
     var personalScoreEl = document.createElement('li');
-    personalScoreEl.textContent = ` ${localStorage.getItem('Initial')} : ${localStorage.getItem('Score')} `;
-    personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: rgb(240,230,140); padding-left: 50px; padding-right: 50px;');
-    highScoreSavedEl.appendChild(personalScoreEl);
 
+    for (var i =0; i < tmpScoreObj.length; i++) {
+        
+        personalScoreEl.textContent = scoresHistory;
+        personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: rgb(240,230,140); padding-left: 50px; padding-right: 50px;');
+        highScoreSavedEl.appendChild(personalScoreEl);
+    }
 
 });
 
