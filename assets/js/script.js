@@ -67,19 +67,19 @@ var score = 0;
 var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
 
 
-function updateInitials(event) {
-    event.preventDefault();
+// function updateInitials(event) {
+//     event.preventDefault();
 
-    var tmpScoreObj = {
-        score: score,
-        initial: event.target.value,
-    };
+//     var tmpScoreObj = {
+//         score: score,
+//         initial: event.target.value,
+//     };
 
-    scoresHistory.push(tmpScoreObj);
-    localStorage.setItem('Score', JSON.stringify(scoresHistory));
+//     scoresHistory.push(tmpScoreObj);
+//     localStorage.setItem('Score', JSON.stringify(scoresHistory));
     
     
-};
+// };
 
 
 function nextQuestion() {
@@ -130,13 +130,27 @@ startButtonEl.addEventListener('click', function (event) {
             initialEl.textContent = 'Submit your initials to save your score: ';
             initialEl.setAttribute('style', 'font-size: 25px');
             inputEl = document.createElement('INPUT');
-            inputEl.setAttribute('type', 'input[name="initials"]');
+            inputEl.setAttribute('type', 'input[type="text"]');
 
             headingEl.appendChild(initialEl);
             headingEl.appendChild(inputEl);
 
             var grabInputEl = document.querySelector('input');
-            grabInputEl.addEventListener('keyup', updateInitials);
+            grabInputEl.addEventListener('change', updateInitials);
+
+            function updateInitials(event) {
+                event.preventDefault();
+            
+                var tmpScoreObj = {
+                    score: score,
+                    initial: event.target.value,
+                };
+            
+                scoresHistory.push(tmpScoreObj);
+                localStorage.setItem('Score', JSON.stringify(scoresHistory));
+                
+                
+            };
 
 
         }
