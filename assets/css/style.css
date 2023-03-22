@@ -73,3 +73,15 @@ main div button {
 
 }
 
+div h1 p {
+    list-style-type: none;
+    font-size: 20px; 
+    font-weight: 300; 
+    background-color: rgb(240,230,140); 
+    color: black;
+    margin-right: 50px;
+    text-align: center;
+   
+   
+}
+

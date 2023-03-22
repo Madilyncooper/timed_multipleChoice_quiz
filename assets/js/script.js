@@ -50,6 +50,12 @@ var indexOfCurrentQuestion = 0;
 
 var scoreListEl = document.querySelector('.score-list');
 
+var listItemEl = document.querySelector('.list-item');
+
+var listHeadEl = document.querySelector('.list-head');
+
+var listTitleEl = document.querySelector('#list-title');
+
 var timeLeft = 50;
 
 var timer;
@@ -60,6 +66,7 @@ var score = 0;
 
 var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
 
+
 function updateInitials(event) {
     event.preventDefault();
 
@@ -68,21 +75,11 @@ function updateInitials(event) {
         initial: event.target.value,
     };
 
-    var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
     scoresHistory.push(tmpScoreObj);
     localStorage.setItem('Score', JSON.stringify(scoresHistory));
     
-        for (var i = 0; i < scoresHistory.length; i++) {
-
-            var personalScoreEl = document.createElement('li');
-            var scoreSheet = scoresHistory[i];
-            var initialsAndScore = `${scoreSheet.initial} : ${scoreSheet.score}`;
-            personalScoreEl.textContent = initialsAndScore;
-            personalScoreEl.setAttribute('style', 'font-size: 20px; font-weight: 300; list-style-type: square; margin-left: -65px; background-color: rgb(240,230,140); padding-left: 50px; padding-right: 50px;');
-            scoreListEl.appendChild(personalScoreEl);
-
-        }
-    };
+    
+};
 
 
 function nextQuestion() {
@@ -113,7 +110,7 @@ startButtonEl.addEventListener('click', function (event) {
         timeLeftEl.textContent = timeLeft;
 
         if (timeLeft <= 0 || indexOfCurrentQuestion === questions.length) {
-            
+
             clearInterval(timer);
 
             timeLeft.textContent = 0;
@@ -133,7 +130,7 @@ startButtonEl.addEventListener('click', function (event) {
             initialEl.textContent = 'Submit your initials to save your score: ';
             initialEl.setAttribute('style', 'font-size: 25px');
             inputEl = document.createElement('INPUT');
-            inputEl.setAttribute('type', 'input[name="initials"');
+            inputEl.setAttribute('type', 'input[name="initials"]');
 
             headingEl.appendChild(initialEl);
             headingEl.appendChild(inputEl);
@@ -141,10 +138,7 @@ startButtonEl.addEventListener('click', function (event) {
             var grabInputEl = document.querySelector('input');
             grabInputEl.addEventListener('change', updateInitials);
 
-            
 
-            var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
-           
         }
 
     }, 1000);
@@ -152,9 +146,9 @@ startButtonEl.addEventListener('click', function (event) {
     nextQuestion();
 });
 
-        
 
-   
+
+
 
 
 questionContentEl.addEventListener('click', function (event) {
@@ -192,10 +186,21 @@ highScoreEl.addEventListener('click', function (event) {
     questionContentEl.innerHTML = '';
     highScoreEl.innerHTML = '';
 
-    var titleEl = document.createElement('h1');
-    titleEl.textContent = 'High Scores: ';
-    titleEl.setAttribute('style', 'font-size: 30px; margin-top: 15px;');
-    headingEl.appendChild(titleEl);
+    for (var i = 0; i < scoresHistory.length; i++) {
+
+        var scoreSheet = scoresHistory[i];
+        var initialsAndScore = `${scoreSheet.initial} : ${scoreSheet.score}`;
+        listItemEl.textContent = initialsAndScore;
+        
+
+    }
+
+    listTitleEl.textContent = 'High Scores: ';
+    listTitleEl.setAttribute('style', 'padding-top: 40px; padding-bottom: 300px; padding-left: 30px; padding-right: -30px; font-size: 40px; margin-left: 500px; margin-right: 500px; color: rgb(12,104,141); border-color: rgb(159, 19, 19); border-style: dashed; border-width: 15px; margin-left: 400px;');
+    listTitleEl.appendChild(listItemEl);
+    scoreListEl.append(listTitleEl);
+    
+
 
 }
 );
