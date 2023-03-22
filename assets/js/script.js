@@ -136,7 +136,7 @@ startButtonEl.addEventListener('click', function (event) {
             headingEl.appendChild(inputEl);
 
             var grabInputEl = document.querySelector('input');
-            grabInputEl.addEventListener('change', updateInitials);
+            grabInputEl.addEventListener('keyup', updateInitials);
 
 
         }
