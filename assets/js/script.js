@@ -50,10 +50,6 @@ var indexOfCurrentQuestion = 0;
 
 var scoreListEl = document.querySelector('.score-list');
 
-var listItemEl = document.querySelector('.list-item');
-
-var listHeadEl = document.querySelector('.list-head');
-
 var listTitleEl = document.querySelector('#list-title');
 
 var timeLeft = 50;
@@ -66,20 +62,6 @@ var score = 0;
 
 var scoresHistory = JSON.parse(localStorage.getItem(scoresHistory)) || [];
 
-
-// function updateInitials(event) {
-//     event.preventDefault();
-
-//     var tmpScoreObj = {
-//         score: score,
-//         initial: event.target.value,
-//     };
-
-//     scoresHistory.push(tmpScoreObj);
-//     localStorage.setItem('Score', JSON.stringify(scoresHistory));
-    
-    
-// };
 
 
 function nextQuestion() {
@@ -131,22 +113,30 @@ startButtonEl.addEventListener('click', function (event) {
             initialEl.setAttribute('style', 'font-size: 25px');
             inputEl = document.createElement('INPUT');
             inputEl.setAttribute('type', 'input[type="text"]');
+            var button = document.createElement('button');
+            button.textContent = 'Save Score';
+            button.setAttribute('style', 'margin-top: 10px; border-radius: 8px; width: 150px; font-size: 20px; background-color: rgb(159, 19, 19); color: white;');
+            
 
             headingEl.appendChild(initialEl);
             headingEl.appendChild(inputEl);
 
             var grabInputEl = document.querySelector('input');
-            grabInputEl.addEventListener('change', updateInitials);
+            button.addEventListener('click', updateInitials);
+            headingEl.appendChild(button);
 
             function updateInitials(event) {
                 event.preventDefault();
-            
+
+                var scoresHistory = JSON.parse(localStorage.getItem('Score')) || [];
+
                 var tmpScoreObj = {
                     score: score,
                     initial: grabInputEl.value,
                 };
             
                 scoresHistory.push(tmpScoreObj);
+                console.log(scoresHistory);
                 localStorage.setItem('Score', JSON.stringify(scoresHistory));
                 
                 
@@ -199,20 +189,27 @@ highScoreEl.addEventListener('click', function (event) {
     headingEl.innerHTML = '';
     questionContentEl.innerHTML = '';
     highScoreEl.innerHTML = '';
+    listTitleEl.textContent = 'High Scores: ';
+    listTitleEl.setAttribute('style', 'padding-top: 40px; padding-bottom: 200px; padding-left: 30px; font-size: 40px; margin-left: 400px; margin-right: 400px; color: rgb(12,104,141); border-color: rgb(159, 19, 19); border-style: dashed; border-width: 15px;');
+    scoreListEl.appendChild(listTitleEl)
+
+    var scoresHistory = JSON.parse(localStorage.getItem('Score')) || [];
 
     for (var i = 0; i < scoresHistory.length; i++) {
 
         var scoreSheet = scoresHistory[i];
         var initialsAndScore = `${scoreSheet.initial} : ${scoreSheet.score}`;
+        var listItemEl = document.createElement('p');
         listItemEl.textContent = initialsAndScore;
-        
+        listItemEl.setAttribute('style', 'font-size: 20px; font-weight: 300; background-color: rgb(240,230,140); color: black; text-align: center; margin-right: 25px; margin-bottom: 30px;');
+        listTitleEl.appendChild(listItemEl);
+         
 
     }
-
-    listTitleEl.textContent = 'High Scores: ';
-    listTitleEl.setAttribute('style', 'padding-top: 40px; padding-bottom: 300px; padding-left: 30px; padding-right: -30px; font-size: 40px; margin-left: 500px; margin-right: 500px; color: rgb(12,104,141); border-color: rgb(159, 19, 19); border-style: dashed; border-width: 15px; margin-left: 400px;');
-    listTitleEl.appendChild(listItemEl);
-    scoreListEl.append(listTitleEl);
+    
+    
+   
+    
     
 
 
