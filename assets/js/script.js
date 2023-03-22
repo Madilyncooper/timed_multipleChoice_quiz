@@ -143,7 +143,7 @@ startButtonEl.addEventListener('click', function (event) {
             
                 var tmpScoreObj = {
                     score: score,
-                    initial: event.target.value,
+                    initial: grabInputEl.value,
                 };
             
                 scoresHistory.push(tmpScoreObj);
